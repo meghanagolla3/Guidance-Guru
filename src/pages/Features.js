@@ -2,28 +2,56 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const Features = () => {
-  const featureList = [
-    { title: "📄 AI Resume Builder", description: "Generate professional resumes with AI assistance." },
-    { title: "🎯 Personalized Learning", description: "AI-driven learning paths tailored for your goals." },
-    { title: "🤖 AI Chat Mentor", description: "Get career guidance from an AI-powered mentor." },
-    { title: "🚀 Hackathon Finder", description: "Find and participate in tech hackathons worldwide." }
-  ];
-
   return (
-    <div className="p-10 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold text-center text-blue-600">Key Features</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-4xl mx-auto">
-        {featureList.map((feature, index) => (
-          <motion.div 
-            key={index}
-            whileHover={{ scale: 1.05 }}
-            className="bg-white shadow-md p-6 rounded-lg transition transform duration-300"
-          >
-            <h2 className="text-2xl font-semibold">{feature.title}</h2>
-            <p className="text-gray-600 mt-2">{feature.description}</p>
-          </motion.div>
-        ))}
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center text-center p-10">
+      <h1 className="text-5xl font-extrabold text-gray-900 mb-10">🚀 Our Powerful Features</h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl">
+        
+        {/* Feature 1: AI Resume Builder */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.5 }}
+          className="bg-blue-100 p-8 rounded-xl shadow-lg hover:scale-105 transition-transform"
+        >
+          <h2 className="text-2xl font-semibold text-blue-800">📄 AI Resume Builder</h2>
+          <p className="text-gray-700 mt-3">Create ATS-friendly resumes with AI suggestions.</p>
+        </motion.div>
+
+        {/* Feature 2: Personalized Learning Paths */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.7 }}
+          className="bg-green-100 p-8 rounded-xl shadow-lg hover:scale-105 transition-transform"
+        >
+          <h2 className="text-2xl font-semibold text-green-800">📚 Personalized Learning Paths</h2>
+          <p className="text-gray-700 mt-3">Get step-by-step guidance to build skills.</p>
+        </motion.div>
+
+        {/* Feature 3: Internship Finder */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.9 }}
+          className="bg-yellow-100 p-8 rounded-xl shadow-lg hover:scale-105 transition-transform"
+        >
+          <h2 className="text-2xl font-semibold text-yellow-800">💼 Internship Finder</h2>
+          <p className="text-gray-700 mt-3">Find internships and freelance gigs easily.</p>
+        </motion.div>
+
+        {/* Feature 4: Hackathon Finder */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 1.1 }}
+          className="bg-red-100 p-8 rounded-xl shadow-lg hover:scale-105 transition-transform"
+        >
+          <h2 className="text-2xl font-semibold text-red-800">🏆 Hackathon Finder</h2>
+          <p className="text-gray-700 mt-3">Discover and participate in upcoming hackathons.</p>
+        </motion.div>
+
       </div>
     </div>
   );
