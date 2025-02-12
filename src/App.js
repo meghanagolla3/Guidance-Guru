@@ -7,7 +7,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Questionnaire from "./pages/Questionnaire";
 import LearningPath from "./pages/LearningPath";
-import Dashboard from "./pages/Dashboard"; // Assuming you have a Dashboard page
+import Dashboard from "./pages/Dashboard"; // if you have one
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 
