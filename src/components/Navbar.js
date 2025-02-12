@@ -8,6 +8,7 @@ import {
   FaEnvelope, 
   FaTachometerAlt, 
   FaFileAlt, 
+  FaCommentAlt, 
   FaBars, 
   FaTimes 
 } from "react-icons/fa";
@@ -37,8 +38,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)} 
               className="flex items-center space-x-2 hover:text-blue-400 transition"
             >
-              <FaHome className="inline mr-1" />
-              <span>Home</span>
+              <FaHome className="inline mr-1" /> <span>Home</span>
             </Link>
           </li>
           <li>
@@ -47,8 +47,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)} 
               className="flex items-center space-x-2 hover:text-blue-400 transition"
             >
-              <FaStar className="inline mr-1" />
-              <span>Features</span>
+              <FaStar className="inline mr-1" /> <span>Features</span>
             </Link>
           </li>
           <li>
@@ -57,8 +56,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)} 
               className="flex items-center space-x-2 hover:text-blue-400 transition"
             >
-              <FaInfoCircle className="inline mr-1" />
-              <span>About</span>
+              <FaInfoCircle className="inline mr-1" /> <span>About</span>
             </Link>
           </li>
           <li>
@@ -67,8 +65,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)} 
               className="flex items-center space-x-2 hover:text-blue-400 transition"
             >
-              <FaEnvelope className="inline mr-1" />
-              <span>Contact</span>
+              <FaEnvelope className="inline mr-1" /> <span>Contact</span>
             </Link>
           </li>
           <li>
@@ -77,8 +74,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)} 
               className="flex items-center space-x-2 hover:text-blue-400 transition"
             >
-              <FaTachometerAlt className="inline mr-1" />
-              <span>Dashboard</span>
+              <FaTachometerAlt className="inline mr-1" /> <span>Dashboard</span>
             </Link>
           </li>
           <li>
@@ -87,8 +83,16 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)} 
               className="flex items-center space-x-2 hover:text-blue-400 transition"
             >
-              <FaFileAlt className="inline mr-1" />
-              <span>Resume Builder</span>
+              <FaFileAlt className="inline mr-1" /> <span>Resume Builder</span>
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/chatbot" 
+              onClick={() => setIsOpen(false)} 
+              className="flex items-center space-x-2 hover:text-blue-400 transition"
+            >
+              <FaCommentAlt className="inline mr-1" /> <span>Chatbot</span>
             </Link>
           </li>
           <li>

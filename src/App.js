@@ -1,5 +1,4 @@
 // src/App.js
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -11,7 +10,7 @@ import LearningPath from "./pages/LearningPath";
 import Dashboard from "./pages/Dashboard";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import ResumeBuilder from "./pages/ResumeBuilder";
+import Chatbot from "./pages/Chatbot";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -31,7 +30,7 @@ const App = () => {
         <Route path="/questionnaire" element={<ProtectedRoute><Questionnaire /></ProtectedRoute>} />
         <Route path="/learning-path" element={<ProtectedRoute><LearningPath /></ProtectedRoute>} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/resume-builder" element={<ProtectedRoute><ResumeBuilder /></ProtectedRoute>} />
+        <Route path="/chatbot" element={<ProtectedRoute><Chatbot /></ProtectedRoute>} />
       </Routes>
     </Router>
   );
