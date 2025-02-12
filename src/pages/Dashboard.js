@@ -1,11 +1,23 @@
 // src/pages/Dashboard.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+import { auth } from "../Firebase";
+import { getUserProgress, saveUserProgress } from "../services/userService";
 import { motion } from "framer-motion";
 
 const Dashboard = () => {
   const [user, loading, error] = useAuthState(auth);
+  const [progress, setProgress] = useState(null);
+
+  useEffect(() => {
+    const fetchProgress = async () => {
+      if (user) {
+        const data = await getUserProgress(user.uid);
+        setProgress(data?.progress || 0);
+      }
+    };
+    fetchProgress();
+  }, [user]);
 
   if (loading)
     return (
@@ -24,49 +36,26 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <motion.div
         className="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-3xl font-bold text-gray-800">
           Welcome, {user.email}!
         </h1>
-        <p className="mt-2 text-gray-600">
-          This is your dashboard where you can track your learning progress and
-          view recommended courses.
+        <p className="mt-4 text-gray-600">
+          This is your dashboard where you can track your learning progress.
         </p>
-
-        {/* Progress Section */}
+        
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-blue-600">Your Progress</h2>
           <div className="mt-4 bg-gray-200 rounded-full h-4 w-full">
             <div
               className="bg-blue-500 h-4 rounded-full"
-              style={{ width: "70%" }}
+              style={{ width: `${progress || 0}%` }}
             ></div>
           </div>
-          <p className="mt-2 text-gray-600">70% Completed</p>
-        </div>
-
-        {/* Recommended Courses Section */}
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold text-green-600">
-            Recommended Courses
-          </h2>
-          <ul className="list-disc ml-6 mt-2 text-gray-700">
-            <li>React.js Fundamentals</li>
-            <li>Advanced JavaScript Techniques</li>
-            <li>Full-Stack Development Bootcamp</li>
-          </ul>
-        </div>
-
-        {/* Profile Details (Optional) */}
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold text-purple-600">
-            Your Profile
-          </h2>
-          <p className="mt-2 text-gray-700">Email: {user.email}</p>
-          {/* Add more profile details if needed */}
+          <p className="mt-2 text-gray-600">{progress || 0}% Completed</p>
         </div>
       </motion.div>
     </div>
