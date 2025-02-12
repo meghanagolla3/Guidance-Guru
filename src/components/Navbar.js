@@ -1,7 +1,16 @@
 // src/components/Navbar.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaStar, FaInfoCircle, FaEnvelope, FaTachometerAlt, FaBars, FaTimes } from "react-icons/fa";
+import { 
+  FaHome, 
+  FaStar, 
+  FaInfoCircle, 
+  FaEnvelope, 
+  FaTachometerAlt, 
+  FaFileAlt, 
+  FaBars, 
+  FaTimes 
+} from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +18,7 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-800 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
+        {/* Logo */}
         <h1 className="text-white text-2xl font-bold">🚀 Guidance Guru</h1>
         
         {/* Mobile Menu Button */}
@@ -22,38 +32,81 @@ const Navbar = () => {
         {/* Navbar Links */}
         <ul className={`md:flex md:space-x-6 text-white ${isOpen ? "block" : "hidden"} md:block`}>
           <li>
-            <Link to="/" onClick={() => setIsOpen(false)}>
-              <FaHome className="inline mr-1" /> Home
+            <Link 
+              to="/" 
+              onClick={() => setIsOpen(false)} 
+              className="flex items-center space-x-2 hover:text-blue-400 transition"
+            >
+              <FaHome className="inline mr-1" />
+              <span>Home</span>
             </Link>
           </li>
           <li>
-            <Link to="/features" onClick={() => setIsOpen(false)}>
-              <FaStar className="inline mr-1" /> Features
+            <Link 
+              to="/features" 
+              onClick={() => setIsOpen(false)} 
+              className="flex items-center space-x-2 hover:text-blue-400 transition"
+            >
+              <FaStar className="inline mr-1" />
+              <span>Features</span>
             </Link>
           </li>
           <li>
-            <Link to="/about" onClick={() => setIsOpen(false)}>
-              <FaInfoCircle className="inline mr-1" /> About
+            <Link 
+              to="/about" 
+              onClick={() => setIsOpen(false)} 
+              className="flex items-center space-x-2 hover:text-blue-400 transition"
+            >
+              <FaInfoCircle className="inline mr-1" />
+              <span>About</span>
             </Link>
           </li>
           <li>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>
-              <FaEnvelope className="inline mr-1" /> Contact
+            <Link 
+              to="/contact" 
+              onClick={() => setIsOpen(false)} 
+              className="flex items-center space-x-2 hover:text-blue-400 transition"
+            >
+              <FaEnvelope className="inline mr-1" />
+              <span>Contact</span>
             </Link>
           </li>
           <li>
-            <Link to="/signup" onClick={() => setIsOpen(false)}>
+            <Link 
+              to="/dashboard" 
+              onClick={() => setIsOpen(false)} 
+              className="flex items-center space-x-2 hover:text-blue-400 transition"
+            >
+              <FaTachometerAlt className="inline mr-1" />
+              <span>Dashboard</span>
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/resume-builder" 
+              onClick={() => setIsOpen(false)} 
+              className="flex items-center space-x-2 hover:text-blue-400 transition"
+            >
+              <FaFileAlt className="inline mr-1" />
+              <span>Resume Builder</span>
+            </Link>
+          </li>
+          <li>
+            <Link 
+              to="/signup" 
+              onClick={() => setIsOpen(false)} 
+              className="hover:text-blue-400 transition"
+            >
               Signup
             </Link>
           </li>
           <li>
-            <Link to="/login" onClick={() => setIsOpen(false)}>
+            <Link 
+              to="/login" 
+              onClick={() => setIsOpen(false)} 
+              className="hover:text-blue-400 transition"
+            >
               Login
-            </Link>
-          </li>
-          <li>
-            <Link to="/dashboard" onClick={() => setIsOpen(false)}>
-              <FaTachometerAlt className="inline mr-1" /> Dashboard
             </Link>
           </li>
         </ul>
