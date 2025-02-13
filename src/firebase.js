@@ -4,7 +4,6 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration (replace with your actual config)
 const firebaseConfig = {
   apiKey: "AIzaSyDKrcrjSmlLnutZIAAaqaf0yX5QYHEYHxc",
   authDomain: "guidance-guru-8a297.firebaseapp.com",

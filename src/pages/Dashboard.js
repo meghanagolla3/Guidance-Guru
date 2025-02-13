@@ -2,35 +2,29 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
-import { getUserData } from "../services/userService"; // Helper to fetch user data from Firestore
+import { getUserData } from "../services/userService";
 import { motion } from "framer-motion";
 
 const Dashboard = () => {
   const [user, loading, error] = useAuthState(auth);
+  // We're using setCoins for dynamic coin balance; if you don't need to update it dynamically, you can remove setCoins.
   const [coins, setCoins] = useState(0);
-  const [progress] = useState(70); // If progress is static for now
-
+  const [progress] = useState(70); // Example static progress value
   const [profile, setProfile] = useState({ displayName: "", email: "" });
 
   useEffect(() => {
     const fetchUserData = async () => {
       if (user) {
-        // Fetch additional data from Firestore (e.g., coins)
         const data = await getUserData(user.uid);
-        if (data) {
-          if (data.coins !== undefined) {
-            setCoins(data.coins);
-          }
-          // Optionally update profile data if stored in Firestore
+        if (data && data.coins !== undefined) {
+          setCoins(data.coins);
         }
-        // Fallback: use auth info
         setProfile({
           displayName: user.displayName || "User",
           email: user.email,
         });
       }
     };
-
     fetchUserData();
   }, [user]);
 
