@@ -1,6 +1,6 @@
 // src/services/userService.js
 
-import { db } from "../Firebase"; // Import the Firestore instance from your firebase configuration
+import { db } from "../firebase"; // Import the Firestore instance from your firebase configuration
 import { doc, setDoc, getDoc } from "firebase/firestore";
 
 /**

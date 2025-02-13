@@ -14,22 +14,22 @@ const ResumeBuilder = () => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const generateResume = async (e) => {
+  const generateResume = (e) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate an API call with a delay (replace this with an actual API call)
+    // Simulate an API call with a 2-second delay
     setTimeout(() => {
       const resumeText = `Resume for ${formData.name}:
-      
+
 Email: ${formData.email}
-      
+
 Education: ${formData.education}
-      
+
 Experience: ${formData.experience}
-      
+
 Skills: ${formData.skills}
 
 [AI generated suggestions will appear here...]`;
@@ -40,11 +40,11 @@ Skills: ${formData.skills}
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
-      <motion.div 
-        className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl"
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
+        className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl"
       >
         <h1 className="text-3xl font-bold text-gray-800 mb-4">AI Resume Builder</h1>
         <form onSubmit={generateResume}>
@@ -99,7 +99,7 @@ Skills: ${formData.skills}
         </form>
       </motion.div>
       {generatedResume && (
-        <motion.div 
+        <motion.div
           className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl mt-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

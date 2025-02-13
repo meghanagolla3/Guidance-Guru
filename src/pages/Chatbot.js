@@ -1,4 +1,3 @@
-// src/pages/Chatbot.js
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -13,7 +12,7 @@ const Chatbot = () => {
     e.preventDefault();
     if (!input.trim()) return;
     
-    // Add the user's message
+    // Append user's message
     const userMessage = { sender: "user", text: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
@@ -40,9 +39,7 @@ const Chatbot = () => {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`mb-2 ${
-                msg.sender === "bot" ? "text-blue-600" : "text-gray-800 text-right"
-              }`}
+              className={`mb-2 ${msg.sender === "bot" ? "text-blue-600" : "text-gray-800 text-right"}`}
             >
               <p>{msg.text}</p>
             </div>
