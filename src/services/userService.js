@@ -1,43 +1,54 @@
 // src/services/userService.js
 
-import { db } from "../firebase"; // Import the Firestore instance from your firebase configuration
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "../firebase"; // Make sure your firebase.js is inside src/ and named correctly
+import { doc, updateDoc, getDoc, setDoc, increment } from "firebase/firestore";
 
 /**
- * Save user progress to Firestore.
- * 
- * @param {string} userId - The unique ID of the user.
- * @param {number} progress - The progress value to save (e.g., percentage completed).
+ * Add coins to a user's coin balance.
+ * @param {string} userId - The user's unique ID.
+ * @param {number} amount - The number of coins to add.
  */
-export const saveUserProgress = async (userId, progress) => {
+export const addCoins = async (userId, amount) => {
   try {
-    // Use merge:true to merge with any existing data instead of overwriting it.
-    await setDoc(doc(db, "users", userId), { progress }, { merge: true });
-    console.log("User progress saved successfully!");
+    // This will increment the 'coins' field by the specified amount.
+    await updateDoc(doc(db, "users", userId), { coins: increment(amount) });
+    console.log("Coins updated successfully!");
   } catch (error) {
-    console.error("Error saving user progress:", error);
+    console.error("Error updating coins:", error);
   }
 };
 
 /**
- * Retrieve user progress from Firestore.
- * 
- * @param {string} userId - The unique ID of the user.
- * @returns {object|null} - The user's data or null if no data exists.
+ * Retrieve a user's data from Firestore.
+ * @param {string} userId - The user's unique ID.
+ * @returns {object|null} - The user's data if it exists, or null.
  */
-export const getUserProgress = async (userId) => {
+export const getUserData = async (userId) => {
   try {
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("User progress fetched:", docSnap.data());
       return docSnap.data();
     } else {
-      console.log("No user progress found.");
+      console.log("No user data found.");
       return null;
     }
   } catch (error) {
-    console.error("Error fetching user progress:", error);
+    console.error("Error fetching user data:", error);
     return null;
+  }
+};
+
+/**
+ * Initialize user data if it doesn't exist (e.g., when a user signs up).
+ * @param {string} userId - The user's unique ID.
+ */
+export const initializeUserData = async (userId) => {
+  try {
+    // Set initial coin balance to 0 along with any other fields you want
+    await setDoc(doc(db, "users", userId), { coins: 0 }, { merge: true });
+    console.log("User data initialized successfully!");
+  } catch (error) {
+    console.error("Error initializing user data:", error);
   }
 };

@@ -2,23 +2,36 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
-// If you have helper functions to save/get progress from Firestore, you can import them here:
-// import { getUserProgress, saveUserProgress } from "../services/userService";
+import { getUserData } from "../services/userService"; // Helper to fetch user data from Firestore
 import { motion } from "framer-motion";
 
 const Dashboard = () => {
   const [user, loading, error] = useAuthState(auth);
-  const [progress, setProgress] = useState(0);
+  const [coins, setCoins] = useState(0);
+  const [progress] = useState(70); // If progress is static for now
+
   const [profile, setProfile] = useState({ displayName: "", email: "" });
 
-  // For now, we'll simulate fetching progress and profile details.
   useEffect(() => {
-    if (user) {
-      // Simulate fetching user data, e.g., from Firestore.
-      // Replace this simulation with your actual data retrieval logic.
-      setProgress(70); // Example progress value
-      setProfile({ displayName: "User", email: user.email });
-    }
+    const fetchUserData = async () => {
+      if (user) {
+        // Fetch additional data from Firestore (e.g., coins)
+        const data = await getUserData(user.uid);
+        if (data) {
+          if (data.coins !== undefined) {
+            setCoins(data.coins);
+          }
+          // Optionally update profile data if stored in Firestore
+        }
+        // Fallback: use auth info
+        setProfile({
+          displayName: user.displayName || "User",
+          email: user.email,
+        });
+      }
+    };
+
+    fetchUserData();
   }, [user]);
 
   if (loading)
@@ -51,9 +64,17 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Coin Balance */}
+        <div className="mt-4">
+          <h2 className="text-xl font-semibold text-yellow-600">Coin Balance</h2>
+          <p className="text-lg text-gray-700">{coins} 🪙</p>
+        </div>
+
         {/* Progress Section */}
         <div className="mt-6">
-          <h2 className="text-xl font-semibold text-blue-600">Your Learning Progress</h2>
+          <h2 className="text-xl font-semibold text-blue-600">
+            Your Learning Progress
+          </h2>
           <div className="mt-4 bg-gray-200 rounded-full h-6 w-full">
             <div
               className="bg-blue-500 h-6 rounded-full transition-all duration-500"
@@ -65,7 +86,9 @@ const Dashboard = () => {
 
         {/* Recommended Courses */}
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-green-600">Recommended Courses</h2>
+          <h2 className="text-xl font-semibold text-green-600">
+            Recommended Courses
+          </h2>
           <ul className="list-disc ml-6 mt-2 text-gray-700">
             <li>React.js Fundamentals</li>
             <li>Advanced JavaScript Techniques</li>
@@ -75,7 +98,9 @@ const Dashboard = () => {
 
         {/* Achievements */}
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-purple-600">Your Achievements</h2>
+          <h2 className="text-xl font-semibold text-purple-600">
+            Your Achievements
+          </h2>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
             <motion.div
               className="bg-yellow-100 p-4 rounded-lg shadow-md"
