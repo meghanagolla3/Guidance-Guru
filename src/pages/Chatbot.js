@@ -1,3 +1,4 @@
+// src/pages/Chatbot.js
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -11,17 +12,18 @@ const Chatbot = () => {
   const handleSend = (e) => {
     e.preventDefault();
     if (!input.trim()) return;
-    
+
     // Append user's message
     const userMessage = { sender: "user", text: input };
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
     setInput("");
-    
+
     // Simulate a delay and then add a bot response
     setLoading(true);
     setTimeout(() => {
+      // For now, the bot response is static. Later you can integrate an AI API.
       const botResponse = { sender: "bot", text: "That's an interesting question! Let me think..." };
-      setMessages((prev) => [...prev, botResponse]);
+      setMessages(prev => [...prev, botResponse]);
       setLoading(false);
     }, 1500);
   };
@@ -51,8 +53,8 @@ const Chatbot = () => {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full p-2 border rounded-l-lg"
             placeholder="Ask your mentor..."
+            className="w-full p-2 border rounded-l-lg"
           />
           <button
             type="submit"

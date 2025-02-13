@@ -57,10 +57,11 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/chatbot" onClick={() => setIsOpen(false)}>
-              <FaCommentAlt className="inline mr-1" /> Chatbot
-            </Link>
-          </li>
+           <Link to="/chatbot" onClick={() => setIsOpen(false)}>
+             <FaCommentAlt className="inline mr-1" /> Chatbot
+          </Link>
+        </li>
+
           <li>
             <Link to="/signup" onClick={() => setIsOpen(false)}>Signup</Link>
           </li>
@@ -74,3 +75,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
