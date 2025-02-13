@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 
 const Dashboard = () => {
   const [user, loading, error] = useAuthState(auth);
-  // We're using setCoins for dynamic coin balance; if you don't need to update it dynamically, you can remove setCoins.
   const [coins, setCoins] = useState(0);
   const [progress] = useState(70); // Example static progress value
   const [profile, setProfile] = useState({ displayName: "", email: "" });
@@ -50,16 +49,16 @@ const Dashboard = () => {
         transition={{ duration: 0.5 }}
       >
         {/* Welcome Section */}
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-center">
           <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
-          <div className="text-right">
+          <div className="mt-4 sm:mt-0 text-center sm:text-right">
             <p className="text-gray-600">Welcome, {profile.displayName}</p>
             <p className="text-gray-600">{profile.email}</p>
           </div>
         </div>
 
         {/* Coin Balance */}
-        <div className="mt-4">
+        <div className="mt-6">
           <h2 className="text-xl font-semibold text-yellow-600">Coin Balance</h2>
           <p className="text-lg text-gray-700">{coins} 🪙</p>
         </div>
