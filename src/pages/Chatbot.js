@@ -9,7 +9,36 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSend = (e) => {
+  // Function to call OpenAI API
+  const fetchAIResponse = async (userMessage) => {
+    try {
+      const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo", // Change to "gpt-4" if available and desired
+          messages: [
+            { role: "system", content: "You are an AI mentor providing helpful career guidance." },
+            { role: "user", content: userMessage },
+          ],
+          max_tokens: 150,
+          temperature: 0.7,
+        }),
+      });
+      const data = await response.json();
+      const aiMessage = data.choices[0].message.content.trim();
+      return aiMessage;
+    } catch (error) {
+      console.error("Error fetching AI response:", error);
+      return "Sorry, I couldn't process your request.";
+    }
+  };
+
+  const handleSend = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
 
@@ -17,15 +46,13 @@ const Chatbot = () => {
     const userMessage = { sender: "user", text: input };
     setMessages(prev => [...prev, userMessage]);
     setInput("");
-
-    // Simulate a delay and then add a bot response
     setLoading(true);
-    setTimeout(() => {
-      // For now, the bot response is static. Later you can integrate an AI API.
-      const botResponse = { sender: "bot", text: "That's an interesting question! Let me think..." };
-      setMessages(prev => [...prev, botResponse]);
-      setLoading(false);
-    }, 1500);
+
+    // Get AI response
+    const aiResponse = await fetchAIResponse(userMessage.text);
+    const botMessage = { sender: "bot", text: aiResponse };
+    setMessages(prev => [...prev, botMessage]);
+    setLoading(false);
   };
 
   return (
