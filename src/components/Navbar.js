@@ -16,57 +16,125 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Get and format the current date
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+
   return (
-    <nav className="bg-gray-800 p-4 shadow-md">
+    <nav className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-white text-2xl font-bold">🚀 Guidance Guru</h1>
+        <div className="flex items-center">
+          {/* Logo and Date Display */}
+          <h1 className="text-white text-3xl font-extrabold tracking-wide mr-4">
+            🚀 Guidance Guru
+          </h1>
+          <div className="text-white text-lg">
+            {formattedDate}
+          </div>
+        </div>
         
-        <button className="text-white md:hidden text-2xl" onClick={() => setIsOpen(!isOpen)}>
+        {/* Mobile Menu Button */}
+        <button
+          className="text-white md:hidden text-3xl"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           {isOpen ? <FaTimes /> : <FaBars />}
         </button>
         
-        <ul className={`md:flex md:space-x-6 text-white ${isOpen ? "block" : "hidden"} md:block`}>
+        {/* Navbar Links */}
+        <ul className={`md:flex md:space-x-8 text-white ${isOpen ? "block" : "hidden"} md:block`}>
           <li>
-            <Link to="/" onClick={() => setIsOpen(false)}>
-              <FaHome className="inline mr-1" /> Home
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-2 hover:text-yellow-300 transition"
+            >
+              <FaHome className="inline" />
+              <span>Home</span>
             </Link>
           </li>
           <li>
-            <Link to="/features" onClick={() => setIsOpen(false)}>
-              <FaStar className="inline mr-1" /> Features
+            <Link
+              to="/features"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-2 hover:text-yellow-300 transition"
+            >
+              <FaStar className="inline" />
+              <span>Features</span>
             </Link>
           </li>
           <li>
-            <Link to="/about" onClick={() => setIsOpen(false)}>
-              <FaInfoCircle className="inline mr-1" /> About
+            <Link
+              to="/about"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-2 hover:text-yellow-300 transition"
+            >
+              <FaInfoCircle className="inline" />
+              <span>About</span>
             </Link>
           </li>
           <li>
-            <Link to="/contact" onClick={() => setIsOpen(false)}>
-              <FaEnvelope className="inline mr-1" /> Contact
+            <Link
+              to="/contact"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-2 hover:text-yellow-300 transition"
+            >
+              <FaEnvelope className="inline" />
+              <span>Contact</span>
             </Link>
           </li>
           <li>
-            <Link to="/dashboard" onClick={() => setIsOpen(false)}>
-              <FaTachometerAlt className="inline mr-1" /> Dashboard
+            <Link
+              to="/dashboard"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-2 hover:text-yellow-300 transition"
+            >
+              <FaTachometerAlt className="inline" />
+              <span>Dashboard</span>
             </Link>
           </li>
           <li>
-            <Link to="/resume-builder" onClick={() => setIsOpen(false)}>
-              <FaFileAlt className="inline mr-1" /> Resume Builder
+            <Link
+              to="/resume-builder"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-2 hover:text-yellow-300 transition"
+            >
+              <FaFileAlt className="inline" />
+              <span>Resume Builder</span>
             </Link>
           </li>
           <li>
-           <Link to="/chatbot" onClick={() => setIsOpen(false)}>
-             <FaCommentAlt className="inline mr-1" /> Chatbot
-          </Link>
-        </li>
-
-          <li>
-            <Link to="/signup" onClick={() => setIsOpen(false)}>Signup</Link>
+            <Link
+              to="/chatbot"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center space-x-2 hover:text-yellow-300 transition"
+            >
+              <FaCommentAlt className="inline" />
+              <span>Chatbot</span>
+            </Link>
           </li>
           <li>
-            <Link to="/login" onClick={() => setIsOpen(false)}>Login</Link>
+            <Link
+              to="/signup"
+              onClick={() => setIsOpen(false)}
+              className="hover:text-yellow-300 transition"
+            >
+              Signup
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/login"
+              onClick={() => setIsOpen(false)}
+              className="hover:text-yellow-300 transition"
+            >
+              Login
+            </Link>
           </li>
         </ul>
       </div>
@@ -75,4 +143,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
