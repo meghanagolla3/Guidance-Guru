@@ -1,41 +1,32 @@
+// src/pages/Home.js
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Home = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-background flex flex-col justify-center items-center px-4">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        className="bg-white shadow-2xl rounded-lg p-8 max-w-3xl text-center"
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white shadow-lg rounded-lg p-6 text-center max-w-2xl"
+        transition={{ duration: 0.6 }}
       >
-        <h1 className="text-4xl font-bold text-gray-800">🚀 Welcome to Guidance Guru</h1>
-        <p className="text-lg text-gray-600 mt-4">
-          Your AI-powered skill development platform for students and professionals.
+        <h1 className="text-5xl font-extrabold text-primary mb-4">
+          Welcome to Guidance Guru
+        </h1>
+        <p className="text-xl text-gray-700 mb-6">
+          Your AI-powered skill development platform. Unlock your potential with personalized learning paths.
         </p>
-
         <Link to="/questionnaire">
           <motion.button
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="mt-6 bg-gradient-to-r from-blue-500 to-blue-700 text-white p-3 rounded-lg shadow-md hover:shadow-lg transition"
+            className="bg-primary text-white px-6 py-3 rounded-full shadow-lg transition duration-300"
           >
-            Start Learning Now
+            Get Started
           </motion.button>
         </Link>
-
-        <div className="mt-8 text-left">
-          <h2 className="text-2xl font-semibold text-gray-700">✨ Why Choose Guidance Guru?</h2>
-          <ul className="list-disc ml-6 mt-3 text-gray-600">
-            <li>🎯 AI-powered Learning Paths tailored for you</li>
-            <li>📚 Personalized Course & Project Recommendations</li>
-            <li>🚀 Hands-on Project-Based Learning</li>
-            <li>🔍 Internship & Job Opportunities</li>
-          </ul>
-        </div>
       </motion.div>
     </div>
   );

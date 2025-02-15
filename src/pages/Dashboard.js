@@ -16,9 +16,7 @@ const Dashboard = () => {
       if (user) {
         const data = await getUserData(user.uid);
         if (data) {
-          if (data.coins !== undefined) {
-            setCoins(data.coins);
-          }
+          if (data.coins !== undefined) setCoins(data.coins);
           setProfile({
             displayName: user.displayName || "User",
             email: user.email,
@@ -36,7 +34,7 @@ const Dashboard = () => {
     return <div className="min-h-screen flex items-center justify-center">Error: {error.message}</div>;
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-background p-6">
       <motion.div
         className="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto"
         initial={{ opacity: 0, scale: 0.95 }}
@@ -90,13 +88,21 @@ const Dashboard = () => {
         {/* Achievements */}
         <div className="mt-8">
           <h2 className="text-xl font-semibold text-purple-600">Your Achievements</h2>
-          <ul className="list-disc ml-6 mt-2 text-gray-700">
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-6">
             {profile.achievements.length > 0 ? (
-              profile.achievements.map((ach, index) => <li key={index}>{ach}</li>)
+              profile.achievements.map((ach, index) => (
+                <motion.div
+                  key={index}
+                  className="bg-yellow-100 p-4 rounded-lg shadow-md"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <p className="text-center font-semibold">{ach}</p>
+                </motion.div>
+              ))
             ) : (
-              <li>No achievements yet. Complete courses to unlock badges!</li>
+              <p className="text-gray-600">No achievements yet. Complete courses to unlock badges!</p>
             )}
-          </ul>
+          </div>
         </div>
       </motion.div>
     </div>
