@@ -5,44 +5,44 @@ import { motion } from "framer-motion";
 
 const levels = [
   {
-    title: "Beginner",
+    title: "1. Beginner",
     description: "Introduction → Road Maps → Either Business or Jobs",
     details: "Lay the foundation with basic concepts and step-by-step roadmaps.",
     route: "/learning-path",
     state: { level: "Beginner" },
   },
   {
-    title: "Medium",
-    description: "Front-end Introduction → Languages → Practice & Certification",
-    details: "Dive into HTML, CSS, and JS frameworks, building dynamic UIs.",
+    title: "2. Medium",
+    description: "Front-end Introduction → Languages → Course starts with selected one → Practice problems or problem statements → Certification",
+    details: "Dive into front-end frameworks, building dynamic UIs and practicing real problems.",
     route: "/learning-path",
     state: { level: "Medium" },
   },
   {
-    title: "High",
-    description: "Database Intro → Type of SQLs → Practice & Certification",
-    details: "Explore relational databases, advanced queries, and real-world examples.",
+    title: "3. High",
+    description: "Database Introduction → Type of SQLs → Course starts with selected one → Practice problems or problem statements → Certification",
+    details: "Explore SQL databases and advanced queries with hands-on problem statements.",
     route: "/learning-path",
     state: { level: "High" },
   },
   {
-    title: "Pro",
-    description: "Back-end Introduction → Languages → Practice & Certification",
-    details: "Master server-side languages, APIs, and advanced architectural patterns.",
+    title: "4. Pro",
+    description: "Back-end Introduction → Languages → Course starts with selected one → Practice problems or problem statements → Certification",
+    details: "Master server-side languages and APIs with practical exercises and certification.",
     route: "/learning-path",
     state: { level: "Pro" },
   },
   {
-    title: "Advanced",
-    description: "Full Stack Dev → Project Statements → Certification",
-    details: "Integrate front-end, back-end, and databases for production-ready apps.",
+    title: "5. Advanced",
+    description: "Full Stack Development → Project Statements → Certification",
+    details: "Integrate front-end, back-end, and databases for full-stack proficiency.",
     route: "/learning-path",
     state: { level: "Advanced" },
   },
   {
-    title: "Business",
-    description: "Focus on Business Roadmaps → Management → Strategy",
-    details: "Develop entrepreneurial skills and business insights to scale your ideas.",
+    title: "6. Business",
+    description: "???",
+    details: "Focus on business roadmaps, management, and strategy. (Customize this as needed.)",
     route: "/learning-path",
     state: { level: "Business" },
   },
@@ -53,7 +53,7 @@ const Home = () => {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Hero / Welcome Section */}
       <div className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background image overlay (replace URL with your own if desired) */}
+        {/* Background image overlay (replace with your own if desired) */}
         <div
           className="absolute inset-0 bg-cover bg-center filter brightness-50"
           style={{ backgroundImage: 'url("https://source.unsplash.com/1600x900/?technology,learning")' }}
@@ -87,7 +87,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Levels / Road Map Section */}
+      {/* Levels Section */}
       <div className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <motion.h2
@@ -106,8 +106,12 @@ const Home = () => {
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
-                <h3 className="text-2xl font-bold text-blue-600 mb-2">{level.title}</h3>
-                <p className="text-gray-700 font-semibold mb-2">{level.description}</p>
+                <h3 className="text-2xl font-bold text-blue-600 mb-2">
+                  {level.title}
+                </h3>
+                <p className="text-gray-700 font-semibold mb-2">
+                  {level.description}
+                </p>
                 <p className="text-gray-600 mb-6">{level.details}</p>
                 <Link to={level.route} state={level.state}>
                   <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
@@ -129,7 +133,7 @@ const Home = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            More to Explore
+            2. About • 3. Tutorials • 4. Contact • 5. Dashboard AI Chat Mentor
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* About Section */}
@@ -191,9 +195,9 @@ const Home = () => {
               <p className="text-gray-600 mb-4">
                 Get personalized career advice and skill recommendations from our AI Mentor.
               </p>
-              <Link to="/chatbot">
+              <Link to="/dashboard">
                 <button className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-                  Chat Now
+                  Go to Dashboard
                 </button>
               </Link>
             </motion.div>
