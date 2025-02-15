@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { addCoins, getUserData } from "../services/userService";
+import { db } from "../firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,11 +13,31 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Function to award daily bonus
+  const handleDailyBonus = async (user) => {
+    try {
+      const data = await getUserData(user.uid);
+      const today = new Date().toISOString().split("T")[0];
+      const lastLoginDate = data && data.lastLogin ? data.lastLogin.toDate().toISOString().split("T")[0] : null;
+      if (lastLoginDate !== today) {
+        await addCoins(user.uid, 10); // Award 10 coins as bonus
+        await updateDoc(doc(db, "users", user.uid), { lastLogin: serverTimestamp() });
+        console.log("Daily bonus awarded!");
+      } else {
+        console.log("Daily bonus already awarded today.");
+      }
+    } catch (error) {
+      console.error("Error awarding daily bonus:", error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard"); // Redirect to dashboard after login
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await handleDailyBonus(user);
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
     }

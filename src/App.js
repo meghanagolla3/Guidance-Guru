@@ -11,7 +11,7 @@ import LearningPath from "./pages/LearningPath";
 import Dashboard from "./pages/Dashboard";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Chatbot from "./pages/Chatbot"; // Import Chatbot
+import Chatbot from "./pages/Chatbot";
 import ResumeBuilder from "./pages/ResumeBuilder";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -23,7 +23,7 @@ const App = () => {
         {/* Public Routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-
+        
         {/* Protected Routes */}
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/features" element={<ProtectedRoute><Features /></ProtectedRoute>} />

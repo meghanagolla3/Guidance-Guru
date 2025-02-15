@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { initializeUserData } from "../services/userService";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -13,8 +14,11 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard"); // Redirect to dashboard after signup
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      // Initialize user data in Firestore
+      await initializeUserData(user.uid);
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
     }

@@ -1,15 +1,18 @@
 // src/services/userService.js
-
 import { db } from "../firebase";
 import { doc, setDoc, getDoc, updateDoc, increment } from "firebase/firestore";
 
 /**
- * Initializes user data in Firestore if it doesn't exist.
- * Sets initial coins to 0 and lastLogin to null (or any default values).
+ * Initializes a new user's data in Firestore.
+ * Sets coins to 0, lastLogin to null, and achievements as an empty array.
  */
 export const initializeUserData = async (userId) => {
   try {
-    await setDoc(doc(db, "users", userId), { coins: 0, lastLogin: null }, { merge: true });
+    await setDoc(doc(db, "users", userId), { 
+      coins: 0, 
+      lastLogin: null,
+      achievements: []
+    }, { merge: true });
     console.log("User data initialized successfully!");
   } catch (error) {
     console.error("Error initializing user data:", error);
@@ -18,7 +21,6 @@ export const initializeUserData = async (userId) => {
 
 /**
  * Retrieves user data from Firestore.
- * Returns the user document data if found, otherwise null.
  */
 export const getUserData = async (userId) => {
   try {
@@ -39,7 +41,6 @@ export const getUserData = async (userId) => {
 
 /**
  * Adds coins to a user's coin balance.
- * Uses Firestore's increment function to update the value.
  */
 export const addCoins = async (userId, amount) => {
   try {

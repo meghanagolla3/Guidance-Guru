@@ -9,36 +9,31 @@ const Dashboard = () => {
   const [user, loading, error] = useAuthState(auth);
   const [coins, setCoins] = useState(0);
   const [progress] = useState(70); // Example static progress value
-  const [profile, setProfile] = useState({ displayName: "", email: "" });
+  const [profile, setProfile] = useState({ displayName: "", email: "", achievements: [] });
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       if (user) {
         const data = await getUserData(user.uid);
-        if (data && data.coins !== undefined) {
-          setCoins(data.coins);
+        if (data) {
+          if (data.coins !== undefined) {
+            setCoins(data.coins);
+          }
+          setProfile({
+            displayName: user.displayName || "User",
+            email: user.email,
+            achievements: data.achievements || []
+          });
         }
-        setProfile({
-          displayName: user.displayName || "User",
-          email: user.email,
-        });
       }
     };
-    fetchUserData();
+    fetchData();
   }, [user]);
 
   if (loading)
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
-      </div>
-    );
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   if (error)
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        Error: {error.message}
-      </div>
-    );
+    return <div className="min-h-screen flex items-center justify-center">Error: {error.message}</div>;
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -60,14 +55,19 @@ const Dashboard = () => {
         {/* Coin Balance */}
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-yellow-600">Coin Balance</h2>
-          <p className="text-lg text-gray-700">{coins} 🪙</p>
+          <motion.p 
+            className="text-lg text-gray-700"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            {coins} 🪙
+          </motion.p>
         </div>
 
         {/* Progress Section */}
         <div className="mt-6">
-          <h2 className="text-xl font-semibold text-blue-600">
-            Your Learning Progress
-          </h2>
+          <h2 className="text-xl font-semibold text-blue-600">Your Learning Progress</h2>
           <div className="mt-4 bg-gray-200 rounded-full h-6 w-full">
             <div
               className="bg-blue-500 h-6 rounded-full transition-all duration-500"
@@ -79,9 +79,7 @@ const Dashboard = () => {
 
         {/* Recommended Courses */}
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-green-600">
-            Recommended Courses
-          </h2>
+          <h2 className="text-xl font-semibold text-green-600">Recommended Courses</h2>
           <ul className="list-disc ml-6 mt-2 text-gray-700">
             <li>React.js Fundamentals</li>
             <li>Advanced JavaScript Techniques</li>
@@ -91,29 +89,14 @@ const Dashboard = () => {
 
         {/* Achievements */}
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-purple-600">
-            Your Achievements
-          </h2>
-          <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <motion.div
-              className="bg-yellow-100 p-4 rounded-lg shadow-md"
-              whileHover={{ scale: 1.05 }}
-            >
-              <p className="text-center font-semibold">Badge 1</p>
-            </motion.div>
-            <motion.div
-              className="bg-yellow-100 p-4 rounded-lg shadow-md"
-              whileHover={{ scale: 1.05 }}
-            >
-              <p className="text-center font-semibold">Badge 2</p>
-            </motion.div>
-            <motion.div
-              className="bg-yellow-100 p-4 rounded-lg shadow-md"
-              whileHover={{ scale: 1.05 }}
-            >
-              <p className="text-center font-semibold">Badge 3</p>
-            </motion.div>
-          </div>
+          <h2 className="text-xl font-semibold text-purple-600">Your Achievements</h2>
+          <ul className="list-disc ml-6 mt-2 text-gray-700">
+            {profile.achievements.length > 0 ? (
+              profile.achievements.map((ach, index) => <li key={index}>{ach}</li>)
+            ) : (
+              <li>No achievements yet. Complete courses to unlock badges!</li>
+            )}
+          </ul>
         </div>
       </motion.div>
     </div>
