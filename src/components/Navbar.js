@@ -1,4 +1,3 @@
-// src/components/Navbar.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { 
@@ -10,7 +9,8 @@ import {
   FaFileAlt, 
   FaCommentAlt, 
   FaBars, 
-  FaTimes 
+  FaTimes, 
+  FaTrophy
 } from "react-icons/fa";
 
 const Navbar = () => {
@@ -70,6 +70,10 @@ const Navbar = () => {
             <FaCommentAlt />
             <span>Chatbot</span>
           </Link>
+          <Link to="/leaderboard" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
+            <FaTrophy />
+            <span>Leaderboard</span>
+          </Link>
           <Link to="/signup" className="text-white text-lg hover:text-yellow-300 transition">
             Signup
           </Link>
@@ -113,6 +117,9 @@ const Navbar = () => {
             </Link>
             <Link onClick={() => setIsOpen(false)} to="/chatbot" className="text-white text-lg hover:text-yellow-300 transition">
               Chatbot
+            </Link>
+            <Link onClick={() => setIsOpen(false)} to="/leaderboard" className="text-white text-lg hover:text-yellow-300 transition">
+              Leaderboard
             </Link>
             <Link onClick={() => setIsOpen(false)} to="/signup" className="text-white text-lg hover:text-yellow-300 transition">
               Signup

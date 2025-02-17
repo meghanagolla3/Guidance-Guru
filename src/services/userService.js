@@ -4,15 +4,23 @@ import { doc, setDoc, getDoc, updateDoc, increment } from "firebase/firestore";
 
 /**
  * Initializes a new user's data in Firestore.
- * Sets coins to 0, lastLogin to null, and achievements as an empty array.
+ * Sets coins to 0, lastLogin to null, achievements to an empty array,
+ * streak to 0, and includes fields for displayName and bio.
  */
 export const initializeUserData = async (userId) => {
   try {
-    await setDoc(doc(db, "users", userId), { 
-      coins: 0, 
-      lastLogin: null,
-      achievements: []
-    }, { merge: true });
+    await setDoc(
+      doc(db, "users", userId),
+      { 
+        coins: 0, 
+        lastLogin: null,
+        achievements: [],
+        streak: 0,
+        displayName: "",
+        bio: ""
+      },
+      { merge: true }
+    );
     console.log("User data initialized successfully!");
   } catch (error) {
     console.error("Error initializing user data:", error);
@@ -48,5 +56,17 @@ export const addCoins = async (userId, amount) => {
     console.log("Coins updated successfully!");
   } catch (error) {
     console.error("Error updating coins:", error);
+  }
+};
+
+/**
+ * Updates the user's profile data.
+ */
+export const updateUserProfile = async (userId, profileData) => {
+  try {
+    await updateDoc(doc(db, "users", userId), profileData);
+    console.log("Profile updated successfully!");
+  } catch (error) {
+    console.error("Error updating profile:", error);
   }
 };

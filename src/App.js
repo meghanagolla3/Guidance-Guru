@@ -13,6 +13,9 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Chatbot from "./pages/Chatbot";
 import ResumeBuilder from "./pages/ResumeBuilder";
+import Profile from "./pages/Profile";
+import Tutorials from "./pages/Tutorials";
+import Leaderboard from "./pages/Leaderboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -23,7 +26,7 @@ const App = () => {
         {/* Public Routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        
+
         {/* Protected Routes */}
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/features" element={<ProtectedRoute><Features /></ProtectedRoute>} />
@@ -34,6 +37,9 @@ const App = () => {
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/chatbot" element={<ProtectedRoute><Chatbot /></ProtectedRoute>} />
         <Route path="/resume-builder" element={<ProtectedRoute><ResumeBuilder /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/tutorials" element={<ProtectedRoute><Tutorials /></ProtectedRoute>} />
+        <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
       </Routes>
     </Router>
   );
