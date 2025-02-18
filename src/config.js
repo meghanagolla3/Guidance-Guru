@@ -1,0 +1,2 @@
+// src/config.js
+export const OPENAI_API_KEY = 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;
