@@ -1,16 +1,16 @@
-// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],  // Scan all files in src folder
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      colors: {
-        primary: "#1D4ED8",     // Blue
-        secondary: "#9333EA",   // Purple
-        accent: "#F59E0B",      // Amber
-        background: "#F3F4F6",  // Light gray for backgrounds
+      animation: {
+        fadeIn: "fadeIn 1s ease-in-out",
       },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"],
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
       },
     },
   },

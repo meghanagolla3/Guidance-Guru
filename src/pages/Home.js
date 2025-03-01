@@ -1,4 +1,4 @@
-// src/pages/Home.js
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -60,10 +60,10 @@ const Home = () => {
         ></div>
         <div className="relative z-10 text-center px-4">
           <motion.h1
-            className="text-5xl md:text-7xl font-extrabold text-purple mb-4"
+            className="text-5xl md:text-7xl font-extrabold text-white mb-4"
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.2 }}
           >
             Welcome to Guidance Guru
           </motion.h1>
