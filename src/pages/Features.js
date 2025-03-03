@@ -17,12 +17,12 @@ const Features = () => {
         </p>
         
         <ul className="list-disc ml-6 mt-4 text-gray-700 text-left">
-          <li>🔹 **AI-Powered Resume & Portfolio Builder**</li>
-          <li>🔹 **AI-Driven Learning Path Generator**</li>
-          <li>🔹 **Voice & Chat-Based AI Mentor**</li>
-          <li>🔹 **Project & Hackathon Hub**</li>
-          <li>🔹 **Daily Learning Challenges & Streaks**</li>
-          <li>🔹 **AI-Powered Internship Finder**</li>
+          <li>🔹 AI-Powered Resume & Portfolio Builder</li>
+          <li>🔹 AI-Driven Learning Path Generator</li>
+          <li>🔹 Voice & Chat-Based AI Mentor</li>
+          <li>🔹 Project & Hackathon Hub</li>
+          <li>🔹 Daily Learning Challenges & Streaks</li>
+          <li>🔹 AI-Powered Internship Finder</li>
         </ul>
       </motion.div>
     </div>

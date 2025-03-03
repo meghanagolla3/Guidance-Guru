@@ -9,7 +9,7 @@ import Contact from "./pages/Contact";
 import Questionnaire from "./pages/Questionnaire";
 import LearningPath from "./pages/LearningPath";
 import Dashboard from "./pages/Dashboard";
-import Signup from "./pages/Signup";
+import Signup from "./pages/Register";
 import Login from "./pages/Login";
 import Chatbot from "./pages/Chatbot";
 import ResumeBuilder from "./pages/ResumeBuilder";

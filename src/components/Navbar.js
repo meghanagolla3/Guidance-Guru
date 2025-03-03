@@ -32,7 +32,7 @@ const Navbar = () => {
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
             <h1 className="text-white text-3xl font-extrabold tracking-wider">
-              🚀 Guidance Guru
+              🚀 GG
             </h1>
           </Link>
           <div className="ml-6 hidden md:block">
@@ -75,7 +75,7 @@ const Navbar = () => {
             <span>Leaderboard</span>
           </Link>
           <Link to="/signup" className="text-white text-lg hover:text-yellow-300 transition">
-            Signup
+            Register
           </Link>
           <Link to="/login" className="text-white text-lg hover:text-yellow-300 transition">
             Login
@@ -122,7 +122,7 @@ const Navbar = () => {
               Leaderboard
             </Link>
             <Link onClick={() => setIsOpen(false)} to="/signup" className="text-white text-lg hover:text-yellow-300 transition">
-              Signup
+              Register
             </Link>
             <Link onClick={() => setIsOpen(false)} to="/login" className="text-white text-lg hover:text-yellow-300 transition">
               Login

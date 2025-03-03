@@ -60,7 +60,7 @@ const Home = () => {
         ></div>
         <div className="relative z-10 text-center px-4">
           <motion.h1
-            className="text-5xl md:text-7xl font-extrabold text-white mb-4"
+            className="text-5xl md:text-7xl font-extrabold text-purple mb-4"
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -68,12 +68,12 @@ const Home = () => {
             Welcome to Guidance Guru
           </motion.h1>
           <motion.p
-            className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto mb-8"
+            className="text-xl md:text-2xl text-black-200 max-w-2xl mx-auto mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
           >
-            Empower your future with AI-driven skill development and personalized learning paths.
+            Beyond Confusion, Towards Clarity!
           </motion.p>
           <Link to="/signup">
             <motion.button
