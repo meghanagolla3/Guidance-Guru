@@ -1,4 +1,5 @@
-import axios from 'axios';
+// import axios from 'axios';
+import { getUserData, addCoins, updateUserProfile } from '../services/userService';
 
 const API_BASE_URL = 'http://localhost:5000/api/users';
 

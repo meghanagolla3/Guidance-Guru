@@ -1,5 +1,5 @@
 import React from 'react';
-import PhoneAuth from '../components/PhoneAuth';
+import PhoneAuth from '../PhoneAuth';
 
 const PhoneLogin = () => {
   return (

@@ -1,8 +1,6 @@
 // src/pages/Dashboard.js
 import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
-import { getUserData } from "../services/userService";
+import { fetchUsers } from "../services/userService";
 import { motion } from "framer-motion";
 
 const Dashboard = () => {

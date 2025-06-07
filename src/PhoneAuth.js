@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from '../supabaseClient';
+import axios from 'axios';
 
 const PhoneAuth = () => {
   const [phone, setPhone] = useState('');
@@ -11,34 +11,41 @@ const PhoneAuth = () => {
   const handleSendOTP = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ phone });
+    setMessage('');
 
-    if (error) {
-      setMessage(error.message);
-    } else {
-      setMessage('OTP sent successfully!');
-      setStep('otp');
+    try {
+      const response = await axios.post('/api/send-otp', { phone });
+      if (response.data.success) {
+        setMessage('OTP sent successfully!');
+        setStep('otp');
+      } else {
+        setMessage(response.data.message || 'Failed to send OTP');
+      }
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Server error');
     }
+
     setLoading(false);
   };
 
   const handleVerifyOTP = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setMessage('');
 
-    const { data, error } = await supabase.auth.verifyOtp({
-      phone,
-      token: otp,
-      type: 'sms',
-    });
-
-    if (error) {
-      setMessage(error.message);
-    } else {
-      setMessage('Logged in successfully!');
-      // redirect to dashboard or home page
-      window.location.href = "/";
+    try {
+      const response = await axios.post('/api/verify-otp', { phone, otp });
+      if (response.data.success) {
+        setMessage('Logged in successfully!');
+        // Redirect to home or dashboard
+        window.location.href = '/';
+      } else {
+        setMessage(response.data.message || 'Invalid OTP');
+      }
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Server error');
     }
+
     setLoading(false);
   };
 
