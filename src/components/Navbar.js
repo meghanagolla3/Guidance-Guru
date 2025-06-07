@@ -16,32 +16,20 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Get and format the current date for display (e.g., "Mon, Feb 10, 2025")
-  const today = new Date();
-  const formattedDate = today.toLocaleDateString("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric"
-  });
-
   return (
     <nav className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 shadow-xl">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Logo & Date */}
+        {/* Logo */}
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
             <h1 className="text-white text-3xl font-extrabold tracking-wider">
               🚀 GG
             </h1>
           </Link>
-          <div className="ml-6 hidden md:block">
-            <span className="text-white text-sm">{formattedDate}</span>
-          </div>
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-8">
+        <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
             <FaHome />
             <span>Home</span>

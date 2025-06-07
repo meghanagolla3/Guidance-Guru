@@ -1,6 +1,6 @@
 
 # Ignore environment config files
-.env
+
 src/config.js
 node_modules/
 build/

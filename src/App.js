@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
@@ -11,6 +10,7 @@ import LearningPath from "./pages/LearningPath";
 import Dashboard from "./pages/Dashboard";
 import Signup from "./pages/Register";
 import Login from "./pages/Login";
+import PhoneLogin from "./pages/PhoneLogin"; // ✅ NEW
 import Chatbot from "./pages/Chatbot";
 import ResumeBuilder from "./pages/ResumeBuilder";
 import Profile from "./pages/Profile";
@@ -26,6 +26,7 @@ const App = () => {
         {/* Public Routes */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/phone-login" element={<PhoneLogin />} /> {/* ✅ NEW */}
 
         {/* Protected Routes */}
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
