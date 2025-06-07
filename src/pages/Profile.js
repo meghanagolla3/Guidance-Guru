@@ -1,8 +1,6 @@
 // src/pages/Profile.js
 import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
-import { getUserData, updateUserProfile } from "../services/userService";
+import { fetchUsers,registerUser } from "../services/userService";
 import { motion } from "framer-motion";
 
 const Profile = () => {

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { db } from "../firebase";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);

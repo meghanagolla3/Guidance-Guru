@@ -1,11 +1,7 @@
 // src/pages/Login.js
 import React, { useState } from "react";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
-import { addCoins, getUserData } from "../services/userService";
-import { db } from "../firebase";
+import { fetchUsers, registerUser } from "../services/userService";
 
 const Login = () => {
   const [email, setEmail] = useState("");

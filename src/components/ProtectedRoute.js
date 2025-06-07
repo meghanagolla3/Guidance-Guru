@@ -1,15 +1,20 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+// src/components/ProtectedRoute.js
+
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
-  const [user, loading] = useAuthState(auth);
+  // Check if user token exists in localStorage (replace with your real auth check)
+  const isAuthenticated = !!localStorage.getItem('authToken');
 
-  if (loading) return <div className="text-center text-xl p-5">Loading...</div>;
-  if (!user) return <Navigate to="/login" replace />;
-  
+  if (!isAuthenticated) {
+    // If not logged in, redirect to login page
+    return <Navigate to="/login" replace />;
+  }
+
+  // If logged in, render the children components
   return children;
 };
 
 export default ProtectedRoute;
+
