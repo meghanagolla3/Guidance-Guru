@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const learningPaths = {
@@ -37,37 +37,58 @@ const learningPaths = {
 
 const LearningPath = () => {
   const location = useLocation();
-  const userLevel = location.state?.level || "Beginner"; // Default to Beginner if no level is selected
+  const navigate = useNavigate();
+
+  const level = location.state?.level;
+  const path = learningPaths[level];
+
+  if (!path) {
+    // Redirect to homepage if invalid or missing level
+    navigate("/");
+    return null;
+  }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen p-6"
+      style={{
+        background: "radial-gradient(circle at top left, #ffffff, #f0f0f0)",
+      }}
+    >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.5 }}
-        className="bg-white shadow-lg rounded-lg p-6 w-full max-w-2xl"
+        className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-3xl border border-gray-200"
       >
-        <h1 className="text-3xl font-bold text-gray-800">{learningPaths[userLevel].title}</h1>
-        <p className="text-lg text-gray-600 mt-2">{learningPaths[userLevel].description}</p>
-        
-        <div className="mt-4">
-          <h2 className="text-xl font-semibold text-gray-700">📌 Topics to Learn:</h2>
-          <ul className="list-disc ml-6 mt-2 text-gray-700">
-            {learningPaths[userLevel].topics.map((topic, index) => (
-              <motion.li key={index} whileHover={{ scale: 1.05 }} className="mt-1">
+        <h1 className="text-4xl font-bold text-gray-800 mb-2">{path.title}</h1>
+        <p className="text-lg text-gray-600 mb-6">{path.description}</p>
+
+        {/* Topics */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold text-gray-700 mb-2"> Topics to Learn:</h2>
+          <ul className="list-disc ml-6 text-gray-700 space-y-1">
+            {path.topics.map((topic, index) => (
+              <motion.li key={index} whileHover={{ scale: 1.03 }}>
                 {topic}
               </motion.li>
             ))}
           </ul>
         </div>
 
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold text-blue-700">📚 Recommended Courses:</h2>
-          <ul className="mt-2">
-            {learningPaths[userLevel].courses.map((course, index) => (
-              <motion.li key={index} whileHover={{ scale: 1.05 }}>
-                <a href={course.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+        {/* Courses */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold text-blue-700 mb-2"> Recommended Courses:</h2>
+          <ul className="space-y-2">
+            {path.courses.map((course, index) => (
+              <motion.li key={index} whileHover={{ scale: 1.03 }}>
+                <a
+                  href={course.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
                   {course.name}
                 </a>
               </motion.li>
@@ -75,11 +96,12 @@ const LearningPath = () => {
           </ul>
         </div>
 
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold text-green-700">💡 Suggested Projects:</h2>
-          <ul className="mt-2">
-            {learningPaths[userLevel].projects.map((project, index) => (
-              <motion.li key={index} whileHover={{ scale: 1.05 }}>
+        {/* Projects */}
+        <div>
+          <h2 className="text-2xl font-semibold text-green-700 mb-2"> Suggested Projects:</h2>
+          <ul className="space-y-2">
+            {path.projects.map((project, index) => (
+              <motion.li key={index} whileHover={{ scale: 1.03 }}>
                 {project}
               </motion.li>
             ))}
@@ -91,3 +113,4 @@ const LearningPath = () => {
 };
 
 export default LearningPath;
+

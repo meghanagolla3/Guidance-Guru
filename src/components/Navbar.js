@@ -1,123 +1,75 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { 
-  FaHome, 
-  FaStar, 
-  FaInfoCircle, 
-  FaEnvelope, 
-  FaTachometerAlt, 
-  FaFileAlt, 
-  FaCommentAlt, 
-  FaBars, 
-  FaTimes, 
-  FaTrophy
+import {
+  FaHome, FaStar, FaInfoCircle, FaEnvelope,
+  FaTachometerAlt, FaFileAlt, FaCommentAlt,
+  FaBars, FaTimes, FaTrophy
 } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const navLinks = [
+    { to: "/", label: "Home", icon: <FaHome /> },
+    { to: "/features", label: "Features", icon: <FaStar /> },
+    { to: "/about", label: "About", icon: <FaInfoCircle /> },
+    { to: "/contact", label: "Contact", icon: <FaEnvelope /> },
+    { to: "/dashboard", label: "Dashboard", icon: <FaTachometerAlt /> },
+    { to: "/resume-builder", label: "Resume Builder", icon: <FaFileAlt /> },
+    { to: "/chatbot", label: "Chatbot", icon: <FaCommentAlt /> },
+    { to: "/leaderboard", label: "Leaderboard", icon: <FaTrophy /> },
+    { to: "/signup", label: "Register" },
+    { to: "/login", label: "Login" },
+  ];
+
   return (
-    <nav className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 shadow-xl">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+    <nav className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 shadow-lg fixed w-full z-50">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center">
-          <Link to="/" className="flex items-center">
-            <h1 className="text-white text-3xl font-extrabold tracking-wider">
-              🚀 GG
-            </h1>
-          </Link>
+        <Link to="/" className="text-white text-3xl font-bold tracking-wide">
+          GG
+        </Link>
+
+        {/* Desktop Nav */}
+        <div className="hidden md:flex space-x-6">
+          {navLinks.map(({ to, label, icon }) => (
+            <Link
+              key={label}
+              to={to}
+              className="text-white hover:text-yellow-300 text-lg flex items-center space-x-2 transition duration-200"
+            >
+              {icon && <span>{icon}</span>}
+              <span>{label}</span>
+            </Link>
+          ))}
         </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
-            <FaHome />
-            <span>Home</span>
-          </Link>
-          <Link to="/features" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
-            <FaStar />
-            <span>Features</span>
-          </Link>
-          <Link to="/about" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
-            <FaInfoCircle />
-            <span>About</span>
-          </Link>
-          <Link to="/contact" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
-            <FaEnvelope />
-            <span>Contact</span>
-          </Link>
-          <Link to="/dashboard" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
-            <FaTachometerAlt />
-            <span>Dashboard</span>
-          </Link>
-          <Link to="/resume-builder" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
-            <FaFileAlt />
-            <span>Resume Builder</span>
-          </Link>
-          <Link to="/chatbot" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
-            <FaCommentAlt />
-            <span>Chatbot</span>
-          </Link>
-          <Link to="/leaderboard" className="text-white text-lg hover:text-yellow-300 transition flex items-center space-x-2">
-            <FaTrophy />
-            <span>Leaderboard</span>
-          </Link>
-          <Link to="/signup" className="text-white text-lg hover:text-yellow-300 transition">
-            Register
-          </Link>
-          <Link to="/login" className="text-white text-lg hover:text-yellow-300 transition">
-            Login
-          </Link>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-white text-3xl focus:outline-none"
-          >
-            {isOpen ? <FaTimes /> : <FaBars />}
-          </button>
-        </div>
+        {/* Hamburger Button */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-white text-3xl focus:outline-none"
+        >
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
-          <div className="container mx-auto px-4 py-2 flex flex-col space-y-2">
-            <Link onClick={() => setIsOpen(false)} to="/" className="text-white text-lg hover:text-yellow-300 transition">
-              Home
-            </Link>
-            <Link onClick={() => setIsOpen(false)} to="/features" className="text-white text-lg hover:text-yellow-300 transition">
-              Features
-            </Link>
-            <Link onClick={() => setIsOpen(false)} to="/about" className="text-white text-lg hover:text-yellow-300 transition">
-              About
-            </Link>
-            <Link onClick={() => setIsOpen(false)} to="/contact" className="text-white text-lg hover:text-yellow-300 transition">
-              Contact
-            </Link>
-            <Link onClick={() => setIsOpen(false)} to="/dashboard" className="text-white text-lg hover:text-yellow-300 transition">
-              Dashboard
-            </Link>
-            <Link onClick={() => setIsOpen(false)} to="/resume-builder" className="text-white text-lg hover:text-yellow-300 transition">
-              Resume Builder
-            </Link>
-            <Link onClick={() => setIsOpen(false)} to="/chatbot" className="text-white text-lg hover:text-yellow-300 transition">
-              Chatbot
-            </Link>
-            <Link onClick={() => setIsOpen(false)} to="/leaderboard" className="text-white text-lg hover:text-yellow-300 transition">
-              Leaderboard
-            </Link>
-            <Link onClick={() => setIsOpen(false)} to="/signup" className="text-white text-lg hover:text-yellow-300 transition">
-              Register
-            </Link>
-            <Link onClick={() => setIsOpen(false)} to="/login" className="text-white text-lg hover:text-yellow-300 transition">
-              Login
-            </Link>
-          </div>
-        </div>
-      )}
+      <div
+        className={`md:hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 px-4 py-4 space-y-3 transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 overflow-hidden opacity-0"
+        }`}
+      >
+        {navLinks.map(({ to, label }) => (
+          <Link
+            key={label}
+            to={to}
+            onClick={() => setIsOpen(false)}
+            className="block text-white text-lg hover:text-yellow-300 transition"
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
     </nav>
   );
 };

@@ -1,7 +1,7 @@
-// src/pages/Login.js
 import React, { useState } from "react";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { fetchUsers, registerUser } from "../services/userService";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,66 +9,48 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Function to award daily bonus
-  const handleDailyBonus = async (user) => {
-    try {
-      const data = await getUserData(user.uid);
-      const today = new Date().toISOString().split("T")[0];
-      const lastLoginDate = data && data.lastLogin ? data.lastLogin.toDate().toISOString().split("T")[0] : null;
-      if (lastLoginDate !== today) {
-        await addCoins(user.uid, 10); // Award 10 coins as bonus
-        await updateDoc(doc(db, "users", user.uid), { lastLogin: serverTimestamp() });
-        console.log("Daily bonus awarded!");
-      } else {
-        console.log("Daily bonus already awarded today.");
-      }
-    } catch (error) {
-      console.error("Error awarding daily bonus:", error);
-    }
-  };
-
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      await handleDailyBonus(user);
-      navigate("/dashboard");
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/dashboard"); // ✅ Redirect to dashboard after login
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
-      <div className="bg-white p-6 rounded shadow-lg max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-4">Log In</h1>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full p-2 border rounded-lg mb-4"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full p-2 border rounded-lg mb-4"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition"
-          >
-            Log In
-          </button>
-        </form>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form
+        onSubmit={handleLogin}
+        className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
+      >
+        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-300"
+        >
+          Login
+        </button>
+        {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
+      </form>
     </div>
   );
 };

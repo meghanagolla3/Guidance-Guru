@@ -1,7 +1,11 @@
 // src/pages/Profile.js
 import React, { useEffect, useState } from "react";
-import { fetchUsers,registerUser } from "../services/userService";
+// import { fetchUsers,registerUser } from "../services/userService";
 import { motion } from "framer-motion";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase"; // adjust path as needed
+import { getUserData, updateUserProfile } from "../services/userService"; // or wherever you define these
+
 
 const Profile = () => {
   const [user, loading, error] = useAuthState(auth);

@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "../firebase"; // adjust path if needed
+
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);

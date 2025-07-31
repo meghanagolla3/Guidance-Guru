@@ -1,40 +1,21 @@
 // src/pages/Dashboard.js
-import React, { useEffect, useState } from "react";
-import { fetchUsers } from "../services/userService";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const Dashboard = () => {
-  const [user, loading, error] = useAuthState(auth);
-  const [coins, setCoins] = useState(0);
-  const [progress] = useState(70); // Example static progress value
-  const [profile, setProfile] = useState({ displayName: "", email: "", achievements: [] });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (user) {
-        const data = await getUserData(user.uid);
-        if (data) {
-          if (data.coins !== undefined) setCoins(data.coins);
-          setProfile({
-            displayName: user.displayName || "User",
-            email: user.email,
-            achievements: data.achievements || []
-          });
-        }
-      }
-    };
-    fetchData();
-  }, [user]);
-
-  if (loading)
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  if (error)
-    return <div className="min-h-screen flex items-center justify-center">Error: {error.message}</div>;
+  // Static example data instead of user auth
+  const [coins] = useState(120); // example coin balance
+  const [progress] = useState(70); // example progress
+  const [profile] = useState({
+    displayName: "Guidance Guru User",
+    email: "user@example.com",
+    achievements: ["Completed React Basics", "JavaScript Mastery", "Full-Stack Bootcamp"],
+  });
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
       <motion.div
-        className="bg-white shadow-lg rounded-lg p-6 max-w-4xl mx-auto"
+        className="bg-white shadow-lg rounded-lg p-6 max-w-4xl w-full"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
@@ -51,7 +32,7 @@ const Dashboard = () => {
         {/* Coin Balance */}
         <div className="mt-6">
           <h2 className="text-xl font-semibold text-yellow-600">Coin Balance</h2>
-          <motion.p 
+          <motion.p
             className="text-lg text-gray-700"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
