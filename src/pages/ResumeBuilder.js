@@ -76,13 +76,14 @@ const ResumeBuilder = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white shadow-lg rounded-lg p-6 w-full max-w-6xl"
-      >
+    <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center pt-16">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white shadow-lg rounded-lg p-6 w-full max-w-6xl"
+    >
+      
         <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">
           AI-Powered Resume Builder
         </h1>

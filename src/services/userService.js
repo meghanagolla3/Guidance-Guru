@@ -1,12 +1,26 @@
-// import axios from 'axios';
-import { getUserData, addCoins, updateUserProfile } from '../services/userService';
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase"; // make sure this is correctly set up
 
-const API_BASE_URL = 'http://localhost:5000/api/users';
-
-export const registerUser = async (userData) => {
-  return axios.post(`${API_BASE_URL}/register`, userData);
+// Fetch user data
+export const getUserData = async (uid) => {
+  try {
+    const userRef = doc(db, "users", uid);
+    const docSnap = await getDoc(userRef);
+    return docSnap.exists() ? docSnap.data() : null;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    return null;
+  }
 };
 
-export const fetchUsers = async () => {
-  return axios.get(API_BASE_URL);
+// Update user profile
+export const updateUserProfile = async (uid, updatedData) => {
+  try {
+    const userRef = doc(db, "users", uid);
+    await updateDoc(userRef, updatedData);
+    return true;
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    return false;
+  }
 };

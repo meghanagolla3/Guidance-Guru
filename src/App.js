@@ -8,15 +8,14 @@ import Contact from "./pages/Contact";
 import Questionnaire from "./pages/Questionnaire";
 import LearningPath from "./pages/LearningPath";
 import Dashboard from "./pages/Dashboard";
-import Signup from "./pages/Register";
+import Register from "./pages/Register";
 import Login from "./pages/Login";
-import PhoneLogin from "./pages/PhoneLogin"; // ✅ NEW
+import PhoneLogin from "./pages/PhoneLogin";
 import Chatbot from "./pages/Chatbot";
 import ResumeBuilder from "./pages/ResumeBuilder";
 import Profile from "./pages/Profile";
 import Tutorials from "./pages/Tutorials";
 import Leaderboard from "./pages/Leaderboard";
-import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   return (
@@ -24,23 +23,24 @@ const App = () => {
       <Navbar />
       <Routes>
         {/* Public Routes */}
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/phone-login" element={<PhoneLogin />} /> {/* ✅ NEW */}
+        <Route path="/phone-login" element={<PhoneLogin />} />
 
-        {/* Protected Routes */}
-        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route path="/features" element={<ProtectedRoute><Features /></ProtectedRoute>} />
-        <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
-        <Route path="/contact" element={<ProtectedRoute><Contact /></ProtectedRoute>} />
-        <Route path="/questionnaire" element={<ProtectedRoute><Questionnaire /></ProtectedRoute>} />
-        <Route path="/learning-path" element={<ProtectedRoute><LearningPath /></ProtectedRoute>} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/chatbot" element={<ProtectedRoute><Chatbot /></ProtectedRoute>} />
-        <Route path="/resume-builder" element={<ProtectedRoute><ResumeBuilder /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/tutorials" element={<ProtectedRoute><Tutorials /></ProtectedRoute>} />
-        <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
+        {/* All Routes Now Public */}
+        <Route path="/" element={<Home />} />
+        <Route path="/features" element={<Features />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/questionnaire" element={<Questionnaire />} />
+        <Route path="/learning-path" element={<LearningPath />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/chatbot" element={<Chatbot />} />
+        <Route path="/resume-builder" element={<ResumeBuilder />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/tutorials" element={<Tutorials />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </Router>
   );
