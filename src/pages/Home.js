@@ -14,7 +14,8 @@ const levels = [
   {
     title: "1. Beginner",
     description: "Introduction → Road Maps → Either Business or Jobs",
-    details: "Lay the foundation with basic concepts and step-by-step roadmaps.",
+    details:
+      "Lay the foundation with basic concepts and step-by-step roadmaps.",
     icon: FaUserGraduate,
     route: "/learning-path",
     state: { level: "Beginner" },
@@ -46,7 +47,8 @@ const levels = [
   {
     title: "5. Advanced",
     description: "Full Stack → Projects → Certification",
-    details: "Integrate front-end, back-end, and databases for full-stack skills.",
+    details:
+      "Integrate front-end, back-end, and databases for full-stack skills.",
     icon: FaLaptopCode,
     route: "/learning-path",
     state: { level: "Advanced" },
@@ -63,7 +65,7 @@ const levels = [
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_#ffffff,_#f3f4f6)] text-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 text-gray-800">
       {/* Hero Section */}
       <div className="relative h-screen flex items-center justify-center text-center px-4">
         <div className="relative z-10 max-w-3xl">
@@ -216,8 +218,8 @@ const Home = () => {
             >
               <h3 className="text-xl font-bold mb-2">AI Chat Mentor</h3>
               <p className="text-gray-600 mb-4">
-                Get personalized career advice and skill recommendations from our
-                AI Mentor.
+                Get personalized career advice and skill recommendations from
+                our AI Mentor.
               </p>
               <Link to="/dashboard">
                 <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">

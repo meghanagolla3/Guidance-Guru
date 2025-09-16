@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  FaChevronDown,
-  FaSearch,
-  FaTh,
-  FaUserCircle
-} from "react-icons/fa";
+import { FaChevronDown, FaSearch, FaTh, FaUserCircle } from "react-icons/fa";
 import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
@@ -14,11 +9,13 @@ const Navbar = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
 
+  const userMenuRef = useRef(null);
+  const navMenuRef = useRef(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -30,6 +27,22 @@ const Navbar = () => {
       console.error("Logout error:", error);
     }
   };
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserMenuOpen(false);
+      }
+      if (navMenuRef.current && !navMenuRef.current.contains(e.target)) {
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const menus = [
     {
@@ -49,9 +62,7 @@ const Navbar = () => {
     },
     {
       title: "Company",
-      items: [
-        { label: "About", to: "/about" },
-      ],
+      items: [{ label: "About", to: "/about" }],
     },
   ];
 
@@ -67,16 +78,19 @@ const Navbar = () => {
           </select>
 
           {/* Icons */}
-          <button className="hover:text-yellow-300"><FaSearch /></button>
-          <button className="hover:text-yellow-300"><FaTh /></button>
+          <button className="hover:text-yellow-300">
+            <FaSearch />
+          </button>
+          <button className="hover:text-yellow-300">
+            <FaTh />
+          </button>
 
-          {/* User Icon with persistent dropdown on hover */}
-          <div
-            className="relative"
-            onMouseEnter={() => setUserMenuOpen(true)}
-            onMouseLeave={() => setUserMenuOpen(false)}
-          >
-            <button className="hover:text-yellow-300 flex items-center space-x-1">
+          {/* User Menu */}
+          <div className="relative" ref={userMenuRef}>
+            <button
+              className="hover:text-yellow-300 flex items-center space-x-1"
+              onClick={() => setUserMenuOpen((prev) => !prev)}
+            >
               <FaUserCircle size={20} />
               {user && (
                 <span className="text-white text-sm ml-1 hidden md:inline">
@@ -86,11 +100,7 @@ const Navbar = () => {
             </button>
 
             {userMenuOpen && (
-              <div
-                className="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded shadow-md z-50"
-                onMouseEnter={() => setUserMenuOpen(true)}
-                onMouseLeave={() => setUserMenuOpen(false)}
-              >
+              <div className="absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded shadow-md z-50">
                 {user ? (
                   <>
                     <p className="px-4 py-2 text-sm border-b">{user.email}</p>
@@ -103,8 +113,20 @@ const Navbar = () => {
                   </>
                 ) : (
                   <>
-                    <Link to="/login" className="block px-4 py-2 hover:bg-gray-100">Login</Link>
-                    <Link to="/signup" className="block px-4 py-2 hover:bg-gray-100">Register</Link>
+                    <Link
+                      to="/login"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                      onClick={() => setUserMenuOpen(false)}
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      to="/signup"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                      onClick={() => setUserMenuOpen(false)}
+                    >
+                      Register
+                    </Link>
                   </>
                 )}
               </div>
@@ -117,57 +139,58 @@ const Navbar = () => {
       <div className="w-full bg-white shadow border-b">
         <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-4">
           {/* Logo */}
-          <Link to="/" className="text-orange-600 font-bold text-2xl flex items-center space-x-2">
+          <Link
+            to="/"
+            className="text-orange-600 font-bold text-2xl flex items-center space-x-2"
+          >
             <span>🎓</span>
             <span>GuidanceGuru</span>
           </Link>
 
           {/* Center Menu */}
-          <div className="hidden md:flex space-x-6 items-center relative">
+          <div
+            className="hidden md:flex space-x-6 items-center relative"
+            ref={navMenuRef}
+          >
             <Link
               to="/"
               className="text-gray-700 hover:text-blue-600 transition"
-              onMouseEnter={() => setActiveDropdown(null)}
+              onClick={() => setActiveDropdown(null)}
             >
               Home
             </Link>
 
             {menus.map((menu, idx) => (
-              <div
-                key={idx}
-                className="relative"
-                onMouseEnter={() => setActiveDropdown(idx)}
-              >
-                <button className="text-gray-700 hover:text-blue-600 flex items-center space-x-1 transition">
+              <div key={idx} className="relative">
+                <button
+                  className="text-gray-700 hover:text-blue-600 flex items-center space-x-1 transition"
+                  onClick={() =>
+                    setActiveDropdown((prev) => (prev === idx ? null : idx))
+                  }
+                >
                   <span>{menu.title}</span>
                   <FaChevronDown className="text-xs mt-1" />
                 </button>
+
+                {activeDropdown === idx && (
+                  <div className="absolute top-full mt-2 bg-white shadow-lg rounded py-2 w-56 z-50">
+                    {menu.items.map(({ label, to }, i) => (
+                      <Link
+                        key={i}
+                        to={to}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
+                        onClick={() => setActiveDropdown(null)}
+                      >
+                        {label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
-
-            {/* Controlled Dropdown */}
-            {activeDropdown !== null && (
-  <div
-    className="absolute top-full mt-2 bg-white shadow-lg rounded py-2 w-56 z-50"
-    style={{ left: "50%", transform: "translateX(-50%)" }}
-  >
-    {menus[activeDropdown].items.map(({ label, to }, i) => (
-      <Link
-        key={i}
-        to={to}
-        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
-      >
-        {label}
-      </Link>
-    ))}
-  </div>
-)}
-
-
-
           </div>
 
-          {/* Right Side: Contact & Get Guidance */}
+          {/* Right Side */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/get-guidance"

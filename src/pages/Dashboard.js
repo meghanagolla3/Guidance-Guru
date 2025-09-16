@@ -1,7 +1,7 @@
 // src/pages/Dashboard.js
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { auth } from "../firebase";  // Adjust path if needed
+import { auth } from "../firebase"; // Adjust path if needed
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -23,7 +23,9 @@ const Dashboard = () => {
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-600 text-lg">Please login to view your dashboard.</p>
+        <p className="text-gray-600 text-lg">
+          Please login to view your dashboard.
+        </p>
       </div>
     );
   }
@@ -40,27 +42,33 @@ const Dashboard = () => {
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
           <div className="mt-4 sm:mt-0 text-center sm:text-right">
-            <p className="text-gray-600">Welcome, {user.displayName || "User"}</p>
+            <p className="text-gray-600">
+              Welcome, {user.displayName || "User"}
+            </p>
             <p className="text-gray-600">{user.email}</p>
           </div>
         </div>
 
         {/* Coin Balance */}
         <div className="mt-6">
-          <h2 className="text-xl font-semibold text-yellow-600">Coin Balance</h2>
+          <h2 className="text-xl font-semibold text-yellow-600">
+            Coin Balance
+          </h2>
           <motion.p
             className="text-lg text-gray-700"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.3 }}
           >
-            {coins} 🪙
+            {coins}
           </motion.p>
         </div>
 
         {/* Progress Section */}
         <div className="mt-6">
-          <h2 className="text-xl font-semibold text-blue-600">Your Learning Progress</h2>
+          <h2 className="text-xl font-semibold text-blue-600">
+            Your Learning Progress
+          </h2>
           <div className="mt-4 bg-gray-200 rounded-full h-6 w-full">
             <div
               className="bg-blue-500 h-6 rounded-full transition-all duration-500"
@@ -72,7 +80,9 @@ const Dashboard = () => {
 
         {/* Recommended Courses */}
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-green-600">Recommended Courses</h2>
+          <h2 className="text-xl font-semibold text-green-600">
+            Recommended Courses
+          </h2>
           <ul className="list-disc ml-6 mt-2 text-gray-700">
             <li>React.js Fundamentals</li>
             <li>Advanced JavaScript Techniques</li>
@@ -82,7 +92,9 @@ const Dashboard = () => {
 
         {/* Achievements */}
         <div className="mt-8">
-          <h2 className="text-xl font-semibold text-purple-600">Your Achievements</h2>
+          <h2 className="text-xl font-semibold text-purple-600">
+            Your Achievements
+          </h2>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-6">
             {achievements.length > 0 ? (
               achievements.map((ach, index) => (
@@ -95,7 +107,9 @@ const Dashboard = () => {
                 </motion.div>
               ))
             ) : (
-              <p className="text-gray-600">No achievements yet. Complete courses to unlock badges!</p>
+              <p className="text-gray-600">
+                No achievements yet. Complete courses to unlock badges!
+              </p>
             )}
           </div>
         </div>
